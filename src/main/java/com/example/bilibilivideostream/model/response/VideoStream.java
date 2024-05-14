@@ -40,6 +40,7 @@ public class VideoStream {
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Video {
                 private String baseUrl;
+                private String bandwidth;
             }
 
             @Data
@@ -48,6 +49,7 @@ public class VideoStream {
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Audio {
                 private String baseUrl;
+                private String bandwidth;
             }
         }
     }
