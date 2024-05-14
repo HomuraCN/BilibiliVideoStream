@@ -11,9 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class VideoStreamWBIService {
@@ -60,9 +58,26 @@ public class VideoStreamWBIService {
         );
 
         VideoStream body = responseEntity1.getBody();
-        System.out.println(responseEntity1.getBody());
-        String videoStreamUrl = body.getData().getDash().getVideoList().get(0).getBaseUrl();
-        String audioStreamUrl = body.getData().getDash().getAudioList().get(0).getBaseUrl();
+
+        List<VideoStream.ResponseData.Dash.Video> videoList = body.getData().getDash().getVideoList();
+        List<VideoStream.ResponseData.Dash.Audio> audioList = body.getData().getDash().getAudioList();
+
+        Collections.sort(videoList, new Comparator<VideoStream.ResponseData.Dash.Video>() {
+            @Override
+            public int compare(VideoStream.ResponseData.Dash.Video o1, VideoStream.ResponseData.Dash.Video o2) {
+                return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+            }
+        });
+
+        Collections.sort(audioList, new Comparator<VideoStream.ResponseData.Dash.Audio>() {
+            @Override
+            public int compare(VideoStream.ResponseData.Dash.Audio o1, VideoStream.ResponseData.Dash.Audio o2) {
+                return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+            }
+        });
+
+        String videoStreamUrl = videoList.get(0).getBaseUrl();
+        String audioStreamUrl = audioList.get(0).getBaseUrl();
 
         ResponseEntity<byte[]> videoResponse = restTemplate.exchange(
                 videoStreamUrl,
