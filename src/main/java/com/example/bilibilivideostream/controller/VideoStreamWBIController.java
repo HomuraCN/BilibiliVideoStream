@@ -20,4 +20,10 @@ public class VideoStreamWBIController {
         videoStreamWBIService.downloadVideo(url, fileName);
         return ResultUtils.success();
     }
+
+    @GetMapping("/downloadBangumi")
+    public Result<?> downloadBangumi(@RequestParam("url") String url){
+        videoStreamWBIService.downloadBangumi(url);
+        return ResultUtils.success();
+    }
 }
