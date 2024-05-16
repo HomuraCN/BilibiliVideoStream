@@ -93,4 +93,9 @@ class BilibiliVideoStreamApplicationTests {
         String cid = avBvCvService.getCid("1554707486");
         System.out.println(cid);
     }
+
+    @Test
+    void testBangumiInfo(){
+        System.out.println(avBvCvService.getBangumiInfo("https://www.bilibili.com/bangumi/play/ep247620?spm_id_from=333.1007.top_right_bar_window_history.content.click&from_spmid=666.25.episode.0"));
+    }
 }
