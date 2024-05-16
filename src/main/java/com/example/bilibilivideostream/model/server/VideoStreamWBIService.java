@@ -1,5 +1,6 @@
 package com.example.bilibilivideostream.model.server;
 
+import com.example.bilibilivideostream.model.response.BangumiInfo;
 import com.example.bilibilivideostream.model.response.VideoStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -154,5 +155,10 @@ public class VideoStreamWBIService {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void downloadBangumi(String url){
+        BangumiInfo bangumiInfo = avBvCvService.getBangumiInfo(url);
+        List<BangumiInfo.ResponseData.Episodes> episodesList = bangumiInfo.getResult().getEpisodesList();
     }
 }

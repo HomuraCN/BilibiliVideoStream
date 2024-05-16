@@ -1,5 +1,6 @@
 package com.example.bilibilivideostream.model.server;
 
+import com.example.bilibilivideostream.model.response.BangumiInfo;
 import com.example.bilibilivideostream.model.response.VideoInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -82,6 +83,46 @@ public class AvBvCvService {
             return body.getData().getCid();
         }
         return "";
+    }
+
+    public BangumiInfo getBangumiInfo(String url){
+        String epId = "";
+        String regexEpId = "/ep([^?]+)";
+        Pattern patternEpId = Pattern.compile(regexEpId);
+        Matcher matcher = patternEpId.matcher(url);
+
+        if (matcher.find()){
+            epId = matcher.group(1);
+            System.out.println(epId);
+        } else {
+            System.out.println("未检测到epId");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        List<String> cookies = new ArrayList<>();
+        List<String> userAgent = new ArrayList<>();
+        List<String> referer = new ArrayList<>();
+        cookies.add("SESSDATA=" + "0e8a14fd%2C1730098942%2C57e15%2A51CjCxZ4LG7pNJnG1vVz9N4L2v2bigQNVO4tktFnABS_qKUmjxW6NmCm5DQucQzc26Ut0SVlpic0ZESWxJaVVnMS1JSFROMHFOR251bUNCUFNmM1draC0wUjk3TmxHOVVNRDFVcUZzNUlNRW5TX2M5Vi1TTVpkdmh6dHBrSVFPSU5PS0pYUl9QM1hBIIEC");
+        userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
+        referer.add("https://www.bilibili.com");
+        headers.put(HttpHeaders.COOKIE, cookies);
+        headers.put(HttpHeaders.USER_AGENT, userAgent);
+        headers.put(HttpHeaders.REFERER, referer);
+
+        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+
+        String bangumiInfoUrl = "https://api.bilibili.com/pgc/view/web/season?ep_id=" + epId;
+
+        Class<BangumiInfo> responseType1 = BangumiInfo.class;
+        ResponseEntity<BangumiInfo> responseEntity1 = restTemplate.exchange(
+                bangumiInfoUrl,
+                HttpMethod.GET,
+                httpEntity,
+                responseType1
+        );
+        BangumiInfo body = responseEntity1.getBody();
+
+        return body;
     }
 
     private static void swapChars(StringBuilder str, int idx1, int idx2) {
