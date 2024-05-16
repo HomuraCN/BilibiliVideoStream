@@ -1,6 +1,7 @@
 package com.example.bilibilivideostream;
 
 import com.example.bilibilivideostream.model.response.VideoStream;
+import com.example.bilibilivideostream.model.server.AvBvCvService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,8 @@ import java.util.List;
 class BilibiliVideoStreamApplicationTests {
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private AvBvCvService avBvCvService;
 
     @Test
     void testDownload() {
@@ -77,5 +80,17 @@ class BilibiliVideoStreamApplicationTests {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void testRegex(){
+        String s = avBvCvService.bvToAv("https://www.bilibili.com/video/BV1g1421B7FR/?spm_id_from=333.1007.tianma.1-1-1.click");
+        System.out.println(s);
+    }
+
+    @Test
+    void testCid(){
+        String cid = avBvCvService.getCid("1554707486");
+        System.out.println(cid);
     }
 }

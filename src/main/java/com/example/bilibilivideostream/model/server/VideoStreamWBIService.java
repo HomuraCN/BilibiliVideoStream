@@ -19,10 +19,15 @@ public class VideoStreamWBIService {
     private RestTemplate restTemplate;
     @Autowired
     private WbiService wbiService;
+    @Autowired
+    private AvBvCvService avBvCvService;
 
-    public void downloadVideo(String avid, String cid, String fileName) {
+    public void downloadVideo(String url, String fileName) {
         String directoryPath = "D:\\H\\Video\\BilibiliVideo";
         System.out.println(fileName);
+
+        String avid = avBvCvService.bvToAv(url);
+        String cid = avBvCvService.getCid(avid);
 
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put("avid", avid);
