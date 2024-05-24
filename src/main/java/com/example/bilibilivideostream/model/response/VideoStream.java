@@ -39,6 +39,7 @@ public class VideoStream {
             @AllArgsConstructor
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Video {
+                private String id;
                 private String baseUrl;
                 private String bandwidth;
             }

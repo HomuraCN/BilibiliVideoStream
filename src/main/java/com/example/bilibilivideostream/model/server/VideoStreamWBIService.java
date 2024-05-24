@@ -72,7 +72,13 @@ public class VideoStreamWBIService {
         Collections.sort(videoList, new Comparator<VideoStream.ResponseData.Dash.Video>() {
             @Override
             public int compare(VideoStream.ResponseData.Dash.Video o1, VideoStream.ResponseData.Dash.Video o2) {
-                return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+                int res = Integer.parseInt(o2.getId()) - Integer.parseInt(o1.getId());
+                if(res != 0){
+                    return res;
+                }
+                else {
+                    return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+                }
             }
         });
 
@@ -203,7 +209,13 @@ public class VideoStreamWBIService {
         Collections.sort(videoList, new Comparator<VideoStream.ResponseData.Dash.Video>() {
             @Override
             public int compare(VideoStream.ResponseData.Dash.Video o1, VideoStream.ResponseData.Dash.Video o2) {
-                return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+                int res = Integer.parseInt(o2.getId()) - Integer.parseInt(o1.getId());
+                if(res != 0){
+                    return res;
+                }
+                else {
+                    return Integer.parseInt(o2.getBandwidth()) - Integer.parseInt(o1.getBandwidth());
+                }
             }
         });
 
