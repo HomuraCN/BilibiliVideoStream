@@ -22,6 +22,7 @@ public class VideoStreamWBIService {
     private WbiService wbiService;
     @Autowired
     private AvBvCvService avBvCvService;
+    private final String sessdata = "86eaebba%2C1731901940%2Cc0a3d%2A51CjDGoGHnvKZtiHow-5w-fGFaZA38INjbrPeKvfXZ2d2n0hWyW71tHKbkcGrgfnguZdISVk5CdGdkMEp2ZmhJSU5tWVZMZnZqOWx3MTkyYmJ5QXZzZVdoZW9EOGVmUUtGREhCT19uLU5BYWlfX2J2MHBiSUNRTi1SUXBMbzRzeFNjNnpRem5EekVRIIEC";
 
     public void downloadVideo(String url, String fileName) {
         String directoryPath = "D:\\H\\Video\\BilibiliVideo";
@@ -46,7 +47,7 @@ public class VideoStreamWBIService {
         List<String> cookies = new ArrayList<>();
         List<String> userAgent = new ArrayList<>();
         List<String> referer = new ArrayList<>();
-        cookies.add("SESSDATA=" + "aa2a80e9%2C1731147874%2C009c6%2A51CjApd7wlJsBSzj0v5lvQaaZOwj5IZCyhrC8byHqICOKCNkdjAhczWWErrZHZcnjaWHkSVldHVjdtX3BQMzhDMXFyQmwzNWlzWnJUOHJ1T0EzNG1kSHdRbVRZOUVnTFNwZkRVeEtrQUdtWmVCTXZhNGtyNVc0Y3RIWFlsZVBCZkEzZFBDU2psc0JnIIEC");
+        cookies.add("SESSDATA=" + sessdata);
         userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
         referer.add("https://www.bilibili.com");
         headers.put(HttpHeaders.COOKIE, cookies);
@@ -177,7 +178,7 @@ public class VideoStreamWBIService {
         List<String> cookies = new ArrayList<>();
         List<String> userAgent = new ArrayList<>();
         List<String> referer = new ArrayList<>();
-        cookies.add("SESSDATA=" + "aa2a80e9%2C1731147874%2C009c6%2A51CjApd7wlJsBSzj0v5lvQaaZOwj5IZCyhrC8byHqICOKCNkdjAhczWWErrZHZcnjaWHkSVldHVjdtX3BQMzhDMXFyQmwzNWlzWnJUOHJ1T0EzNG1kSHdRbVRZOUVnTFNwZkRVeEtrQUdtWmVCTXZhNGtyNVc0Y3RIWFlsZVBCZkEzZFBDU2psc0JnIIEC");
+        cookies.add("SESSDATA=" + sessdata);
         userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
         referer.add("https://www.bilibili.com");
         headers.put(HttpHeaders.COOKIE, cookies);

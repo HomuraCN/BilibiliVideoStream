@@ -60,7 +60,7 @@ public class AvBvCvService {
         List<String> cookies = new ArrayList<>();
         List<String> userAgent = new ArrayList<>();
         List<String> referer = new ArrayList<>();
-        cookies.add("SESSDATA=" + "0e8a14fd%2C1730098942%2C57e15%2A51CjCxZ4LG7pNJnG1vVz9N4L2v2bigQNVO4tktFnABS_qKUmjxW6NmCm5DQucQzc26Ut0SVlpic0ZESWxJaVVnMS1JSFROMHFOR251bUNCUFNmM1draC0wUjk3TmxHOVVNRDFVcUZzNUlNRW5TX2M5Vi1TTVpkdmh6dHBrSVFPSU5PS0pYUl9QM1hBIIEC");
+        cookies.add("SESSDATA=" + "86eaebba%2C1731901940%2Cc0a3d%2A51CjDGoGHnvKZtiHow-5w-fGFaZA38INjbrPeKvfXZ2d2n0hWyW71tHKbkcGrgfnguZdISVk5CdGdkMEp2ZmhJSU5tWVZMZnZqOWx3MTkyYmJ5QXZzZVdoZW9EOGVmUUtGREhCT19uLU5BYWlfX2J2MHBiSUNRTi1SUXBMbzRzeFNjNnpRem5EekVRIIEC");
         userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
         referer.add("https://www.bilibili.com");
         headers.put(HttpHeaders.COOKIE, cookies);
@@ -102,7 +102,7 @@ public class AvBvCvService {
         List<String> cookies = new ArrayList<>();
         List<String> userAgent = new ArrayList<>();
         List<String> referer = new ArrayList<>();
-        cookies.add("SESSDATA=" + "0e8a14fd%2C1730098942%2C57e15%2A51CjCxZ4LG7pNJnG1vVz9N4L2v2bigQNVO4tktFnABS_qKUmjxW6NmCm5DQucQzc26Ut0SVlpic0ZESWxJaVVnMS1JSFROMHFOR251bUNCUFNmM1draC0wUjk3TmxHOVVNRDFVcUZzNUlNRW5TX2M5Vi1TTVpkdmh6dHBrSVFPSU5PS0pYUl9QM1hBIIEC");
+        cookies.add("SESSDATA=" + "86eaebba%2C1731901940%2Cc0a3d%2A51CjDGoGHnvKZtiHow-5w-fGFaZA38INjbrPeKvfXZ2d2n0hWyW71tHKbkcGrgfnguZdISVk5CdGdkMEp2ZmhJSU5tWVZMZnZqOWx3MTkyYmJ5QXZzZVdoZW9EOGVmUUtGREhCT19uLU5BYWlfX2J2MHBiSUNRTi1SUXBMbzRzeFNjNnpRem5EekVRIIEC");
         userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
         referer.add("https://www.bilibili.com");
         headers.put(HttpHeaders.COOKIE, cookies);
