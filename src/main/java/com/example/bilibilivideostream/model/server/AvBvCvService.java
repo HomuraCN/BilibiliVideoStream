@@ -30,7 +30,6 @@ public class AvBvCvService {
 
         if (matcher.find()){
             BV.append(matcher.group(1));
-            System.out.println(BV);
         } else {
             System.out.println("未检测到BV");
         }
@@ -93,7 +92,6 @@ public class AvBvCvService {
 
         if (matcher.find()){
             epId = matcher.group(1);
-            System.out.println(epId);
         } else {
             System.out.println("未检测到epId");
         }
