@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 @Service
@@ -22,7 +24,9 @@ public class VideoStreamWBIService {
     private WbiService wbiService;
     @Autowired
     private AvBvCvService avBvCvService;
-    private final String sessdata = "86eaebba%2C1731901940%2Cc0a3d%2A51CjDGoGHnvKZtiHow-5w-fGFaZA38INjbrPeKvfXZ2d2n0hWyW71tHKbkcGrgfnguZdISVk5CdGdkMEp2ZmhJSU5tWVZMZnZqOWx3MTkyYmJ5QXZzZVdoZW9EOGVmUUtGREhCT19uLU5BYWlfX2J2MHBiSUNRTi1SUXBMbzRzeFNjNnpRem5EekVRIIEC";
+    private final String sessdata = "cfb8b5b3%2C1732161248%2C11f5f%2A51CjAzcwv0bJnfcNBEccdJLauqpYYpxCIO6q3qd_oHcQ74afYDOqdy5RD_OJdgxXjS6Y0SVkhrMzIwRW9iQURfRGJkUlJaVWdkQ3FSd21fN0xuTWgyUnhiSXA5UEQ2RU9Odk80cmtJeDlvN095ZkFzRzVzdTZZMjBBRV9Rai03bHhCNl9JSmhNTllBIIEC";
+    // 可根据需求调整缓冲区大小
+    private final int bufferSize = 65536;
 
     public void downloadVideo(String url, String fileName) {
         String directoryPath = "D:\\H\\Video\\BilibiliVideo";
@@ -229,33 +233,63 @@ public class VideoStreamWBIService {
         String videoStreamUrl = videoList.get(0).getBaseUrl();
         String audioStreamUrl = audioList.get(0).getBaseUrl();
 
-        ResponseEntity<byte[]> videoResponse = restTemplate.exchange(
+        ResponseEntity<Void> videoResponse = restTemplate.execute(
                 videoStreamUrl,
                 HttpMethod.GET,
-                httpEntity,
-                byte[].class
+                request -> {
+                    // 添加请求头信息
+                    headers.forEach((key, values) -> {
+                        values.forEach(value -> request.getHeaders().addAll(key, Collections.singletonList(value)));
+                    });
+                },
+                response -> {
+                    try (InputStream inputStream = response.getBody();
+                         OutputStream outputStream = new FileOutputStream(directoryPath + "\\videoStream.m4s")) {
+                        byte[] buffer = new byte[bufferSize]; // 缓冲区大小
+                        long totalBytesRead = 0;
+                        long contentLength = response.getHeaders().getContentLength();
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                            totalBytesRead += bytesRead;
+                            // 计算并显示进度条
+                            double progress = (double) totalBytesRead / contentLength * 100;
+                            System.out.printf("\rProgress: %.2f%%", progress);
+                            System.out.flush();
+                        }
+                        return null;
+                    }
+                }
         );
 
-        byte[] file = videoResponse.getBody();
-        try (FileOutputStream fos = new FileOutputStream(directoryPath + "\\videoStream.m4s")) {
-            fos.write(file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        ResponseEntity<byte[]> audioResponse = restTemplate.exchange(
+        ResponseEntity<Void> audioResponse = restTemplate.execute(
                 audioStreamUrl,
                 HttpMethod.GET,
-                httpEntity,
-                byte[].class
+                request -> {
+                    // 添加请求头信息
+                    headers.forEach((key, values) -> {
+                        values.forEach(value -> request.getHeaders().addAll(key, Collections.singletonList(value)));
+                    });
+                },
+                response -> {
+                    try (InputStream inputStream = response.getBody();
+                         OutputStream outputStream = new FileOutputStream(directoryPath + "\\audioStream.m4s")) {
+                        byte[] buffer = new byte[bufferSize]; // 缓冲区大小
+                        long totalBytesRead = 0;
+                        long contentLength = response.getHeaders().getContentLength();
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                            totalBytesRead += bytesRead;
+                            // 计算并显示进度条
+                            double progress = (double) totalBytesRead / contentLength * 100;
+                            System.out.printf("\rProgress: %.2f%%", progress);
+                            System.out.flush();
+                        }
+                        return null;
+                    }
+                }
         );
-
-        file = audioResponse.getBody();
-        try (FileOutputStream fos = new FileOutputStream(directoryPath + "\\audioStream.m4s")) {
-            fos.write(file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         try {
             Thread.currentThread().sleep(3000);
