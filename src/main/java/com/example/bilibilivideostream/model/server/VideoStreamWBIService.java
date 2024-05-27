@@ -2,6 +2,7 @@ package com.example.bilibilivideostream.model.server;
 
 import com.example.bilibilivideostream.model.response.BangumiInfo;
 import com.example.bilibilivideostream.model.response.VideoStream;
+import com.example.bilibilivideostream.utils.PowerShellUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -130,42 +131,9 @@ public class VideoStreamWBIService {
             throw new RuntimeException(e);
         }
 
-        try {
-            // PowerShell脚本的路径
-            String scriptPath = directoryPath + "\\ffmpegShell.ps1";
-
-            // 脚本参数
-            String argument1 = fileName;
-
-            // 构建PowerShell命令
-            String command = "powershell.exe -ExecutionPolicy Bypass -File " + scriptPath + " " + argument1;
-
-            // 执行命令
-            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            processBuilder.redirectErrorStream(true);
-
-            Process process = processBuilder.start();
-
-            // 获取命令执行的输出
-            java.io.InputStream is = process.getInputStream();
-            int i;
-            char c;
-            StringBuilder output = new StringBuilder();
-            while ((i = is.read()) != -1) {
-                c = (char) i;
-                output.append(c);
-            }
-
-            // 打印输出
-            System.out.println(output.toString());
-
-            // 等待命令执行完成
-            int exitCode = process.waitFor();
-            System.out.println("Command exited with code: " + exitCode);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        List<String> arguments = new ArrayList<>();
+        arguments.add(fileName);
+        PowerShellUtils.executePowerShellScript(directoryPath, "ffmpegShell", arguments);
     }
 
     public void downloadVideoByAidCid(String avid, String cid, String fileName) {
@@ -297,42 +265,9 @@ public class VideoStreamWBIService {
             throw new RuntimeException(e);
         }
 
-        try {
-            // PowerShell脚本的路径
-            String scriptPath = directoryPath + "\\ffmpegShell.ps1";
-
-            // 脚本参数
-            String argument1 = fileName;
-
-            // 构建PowerShell命令
-            String command = "powershell.exe -ExecutionPolicy Bypass -File " + scriptPath + " " + argument1;
-
-            // 执行命令
-            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            processBuilder.redirectErrorStream(true);
-
-            Process process = processBuilder.start();
-
-            // 获取命令执行的输出
-            java.io.InputStream is = process.getInputStream();
-            int i;
-            char c;
-            StringBuilder output = new StringBuilder();
-            while ((i = is.read()) != -1) {
-                c = (char) i;
-                output.append(c);
-            }
-
-            // 打印输出
-            System.out.println(output.toString());
-
-            // 等待命令执行完成
-            int exitCode = process.waitFor();
-            System.out.println("Command exited with code: " + exitCode);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        List<String> arguments = new ArrayList<>();
+        arguments.add(fileName);
+        PowerShellUtils.executePowerShellScript(directoryPath, "ffmpegShell", arguments);
     }
 
     public void downloadBangumi(String url){
