@@ -150,6 +150,7 @@ public class VideoStreamWBIService {
                             System.out.printf("\rProgress: %.2f%%", progress);
                             System.out.flush();
                         }
+                        System.out.println();
                         return null;
                     }
                 }
@@ -284,6 +285,7 @@ public class VideoStreamWBIService {
                             System.out.printf("\rProgress: %.2f%%", progress);
                             System.out.flush();
                         }
+                        System.out.println();
                         return null;
                     }
                 }
