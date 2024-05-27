@@ -17,7 +17,7 @@ public class VideoStreamWBIController {
 
     @GetMapping("/downloadVideoWBI")
     public Result<?> downloadVideo(@RequestParam("url") String url, @RequestParam("fileName") String fileName){
-        videoStreamWBIService.downloadVideo(url, fileName);
+        videoStreamWBIService.downloadSingleVideo(url, fileName);
         return ResultUtils.success();
     }
 
