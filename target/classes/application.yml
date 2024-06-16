@@ -1,2 +1,8 @@
 server:
   port: 9961
+spring:
+  data:
+    mongodb:
+      uri: mongodb://admin:123456@192.168.40.129:27017/bilibili_video_stream?authSource=bilibili_video_stream
+BILIBILI:
+  MID: 27842728

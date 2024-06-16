@@ -1,10 +1,12 @@
 package com.example.bilibilivideostream;
 
+import com.example.bilibilivideostream.model.javabean.Cookie;
 import com.example.bilibilivideostream.model.response.VideoStream;
 import com.example.bilibilivideostream.model.server.AvBvCvService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,6 +23,8 @@ class BilibiliVideoStreamApplicationTests {
     private RestTemplate restTemplate;
     @Autowired
     private AvBvCvService avBvCvService;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Test
     void testDownload() {
@@ -97,5 +101,14 @@ class BilibiliVideoStreamApplicationTests {
     @Test
     void testBangumiInfo(){
         System.out.println(avBvCvService.getBangumiInfo("https://www.bilibili.com/bangumi/play/ep247620?spm_id_from=333.1007.top_right_bar_window_history.content.click&from_spmid=666.25.episode.0"));
+    }
+
+    @Test
+    void insertCookie(){
+        Cookie cookie = new Cookie();
+        cookie.setMid(27842728);
+        cookie.setSessData("437e145e%2C1734073520%2C3363a%2A61CjC17wI7wyQann0QJeJCS9ig2lsJGP8llFANL67Dcm4gsOwJKGKniCuI1FwptAiJLg0SVm1va3BFa1o1eldmbVJwODhTWGpVbGU0cElPbXNzdHY0SFY2NHhhVmt1T0JpWDFhemFXU1NjeE9zbUFtUTliekN2OEY2c3ZnWVp5Qk1LRnE1V0dlQTRBIIEC");
+        cookie.setBiliJct("a3ff2de40f06b68e2608fc9bfe939bf6");
+        mongoTemplate.insert(cookie);
     }
 }

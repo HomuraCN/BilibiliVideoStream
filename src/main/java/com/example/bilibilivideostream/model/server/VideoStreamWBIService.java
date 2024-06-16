@@ -1,10 +1,12 @@
 package com.example.bilibilivideostream.model.server;
 
+import com.example.bilibilivideostream.model.javabean.Cookie;
 import com.example.bilibilivideostream.model.response.BangumiInfo;
 import com.example.bilibilivideostream.model.response.VideoStream;
 import com.example.bilibilivideostream.utils.PowerShellUtils;
 import com.example.bilibilivideostream.utils.RestTemplateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,10 @@ public class VideoStreamWBIService {
     private AvBvCvService avBvCvService;
     @Autowired
     private RestTemplateUtils restTemplateUtils;
-    private final String sessdata = "cfb8b5b3%2C1732161248%2C11f5f%2A51CjAzcwv0bJnfcNBEccdJLauqpYYpxCIO6q3qd_oHcQ74afYDOqdy5RD_OJdgxXjS6Y0SVkhrMzIwRW9iQURfRGJkUlJaVWdkQ3FSd21fN0xuTWgyUnhiSXA5UEQ2RU9Odk80cmtJeDlvN095ZkFzRzVzdTZZMjBBRV9Rai03bHhCNl9JSmhNTllBIIEC";
+    @Autowired
+    private CookieService cookieService;
+    @Value("${BILIBILI.MID}")
+    private int MID;
     private final String directoryPath = "D:\\H\\Video\\BilibiliVideo";
 
     public void downloadVideoByAidCid(String avid, String cid, String fileName) {
@@ -39,7 +44,10 @@ public class VideoStreamWBIService {
         List<String> cookies = new ArrayList<>();
         List<String> userAgent = new ArrayList<>();
         List<String> referer = new ArrayList<>();
-        cookies.add("SESSDATA=" + sessdata);
+
+        Cookie cookie = new Cookie();
+        cookie.setMid(MID);
+        cookies.add("SESSDATA=" + cookieService.findOneCookieByMid(cookie).getSessData());
         userAgent.add("Mozilla/5.0 (Windows NT 6.3;Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
         referer.add("https://www.bilibili.com");
         headers.put(HttpHeaders.COOKIE, cookies);
@@ -89,7 +97,7 @@ public class VideoStreamWBIService {
         downloadVideoByAidCid(avid, cid, fileName);
     }
 
-    public void downloadBangumi(String url){
+    public void downloadBangumi(String url, int l, int r){
         BangumiInfo bangumiInfo = avBvCvService.getBangumiInfo(url);
         List<BangumiInfo.ResponseData.Episodes> episodesList = bangumiInfo.getResult().getEpisodesList();
         for(int i = 0; i < episodesList.size(); i++) {
@@ -98,6 +106,8 @@ public class VideoStreamWBIService {
 //            if(ep > num) break;
 //            [num-end]
 //            if(ep < num) continue;
+            if(ep < l) continue;
+            if(ep > r) break;
             System.out.println("ep" + String.valueOf(i + 1));
             downloadVideoByAidCid(episodesList.get(i).getAid(),
                     episodesList.get(i).getCid(), "ep" + String.valueOf(i + 1));
