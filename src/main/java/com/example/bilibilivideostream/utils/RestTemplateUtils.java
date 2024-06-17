@@ -1,5 +1,6 @@
 package com.example.bilibilivideostream.utils;
 
+import com.example.bilibilivideostream.model.handler.ProgressWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
@@ -80,9 +82,14 @@ public class RestTemplateUtils {
                             double progress = (double) totalBytesRead / contentLength * 100;
                             System.out.printf("\rProgress of [" + fileName + "]: %.2f%%", progress);
                             System.out.flush();
+                            // 发送进度信息给前端
+                            String progressMessage = String.format("{\"fileName\": \"%s\", \"progress\": %.2f}", fileName, progress);
+                            ProgressWebSocketHandler.sendMessage(progressMessage);
                         }
                         System.out.println();
                         return null;
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error downloading file", e);
                     }
                 }
         );
