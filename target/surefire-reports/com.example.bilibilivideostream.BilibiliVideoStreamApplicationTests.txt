@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 6.307 s <<< FAILURE! -- in com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests
+com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests.insertCookie -- Time elapsed: 0.094 s <<< ERROR!
+org.springframework.dao.DuplicateKeyException: Write operation error on server 192.168.40.129:27017. Write error: WriteError{code=11000, message='E11000 duplicate key error collection: bilibili_video_stream.cookie index: _id_ dup key: { _id: 27842728 }', details={}}.
+	at org.springframework.data.mongodb.core.MongoExceptionTranslator.translateExceptionIfPossible(MongoExceptionTranslator.java:99)
+	at org.springframework.data.mongodb.core.MongoTemplate.potentiallyConvertRuntimeException(MongoTemplate.java:2993)
+	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:603)
+	at org.springframework.data.mongodb.core.MongoTemplate.insertDocument(MongoTemplate.java:1534)
+	at org.springframework.data.mongodb.core.MongoTemplate.doInsert(MongoTemplate.java:1335)
+	at org.springframework.data.mongodb.core.MongoTemplate.insert(MongoTemplate.java:1261)
+	at org.springframework.data.mongodb.core.MongoTemplate.insert(MongoTemplate.java:1250)
+	at com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests.insertCookie(BilibiliVideoStreamApplicationTests.java:112)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: com.mongodb.MongoWriteException: Write operation error on server 192.168.40.129:27017. Write error: WriteError{code=11000, message='E11000 duplicate key error collection: bilibili_video_stream.cookie index: _id_ dup key: { _id: 27842728 }', details={}}.
+	at com.mongodb.client.internal.MongoCollectionImpl.executeSingleWriteRequest(MongoCollectionImpl.java:1093)
+	at com.mongodb.client.internal.MongoCollectionImpl.executeInsertOne(MongoCollectionImpl.java:478)
+	at com.mongodb.client.internal.MongoCollectionImpl.insertOne(MongoCollectionImpl.java:461)
+	at com.mongodb.client.internal.MongoCollectionImpl.insertOne(MongoCollectionImpl.java:455)
+	at org.springframework.data.mongodb.core.MongoTemplate.lambda$insertDocument$17(MongoTemplate.java:1540)
+	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:601)
+	... 8 more
+
+com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests.testDownload -- Time elapsed: 2.284 s <<< ERROR!
+java.lang.RuntimeException: java.io.FileNotFoundException: D:\G\无能小OP\更新\videoStream.m4s (系统找不到指定的路径。)
+	at com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests.testDownload(BilibiliVideoStreamApplicationTests.java:71)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: java.io.FileNotFoundException: D:\G\无能小OP\更新\videoStream.m4s (系统找不到指定的路径。)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:118)
+	at com.example.bilibilivideostream.BilibiliVideoStreamApplicationTests.testDownload(BilibiliVideoStreamApplicationTests.java:68)
+	... 3 more
+
