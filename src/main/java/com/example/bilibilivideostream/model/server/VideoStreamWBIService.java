@@ -101,11 +101,7 @@ public class VideoStreamWBIService {
         BangumiInfo bangumiInfo = avBvCvService.getBangumiInfo(url);
         List<BangumiInfo.ResponseData.Episodes> episodesList = bangumiInfo.getResult().getEpisodesList();
         for(int i = 0; i < episodesList.size(); i++) {
-            int ep = i + 1, num = 2;
-//            [1-num]
-//            if(ep > num) break;
-//            [num-end]
-//            if(ep < num) continue;
+            int ep = i + 1;
             if(ep < l) continue;
             if(ep > r) break;
             System.out.println("ep" + String.valueOf(i + 1));
