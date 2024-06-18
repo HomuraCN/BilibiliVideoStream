@@ -119,6 +119,9 @@ public class RestTemplateUtils {
                             double progress = (double) totalBytesRead / contentLength * 100;
                             System.out.printf("\rProgress of [" + fileName + "]: %.2f%%", progress);
                             System.out.flush();
+                            // 发送进度信息给前端
+                            String progressMessage = String.format("{\"fileName\": \"%s\", \"progress\": %.2f}", fileName, progress);
+                            ProgressWebSocketHandler.sendMessage(progressMessage);
                         }
                         System.out.println();
                         return null;
