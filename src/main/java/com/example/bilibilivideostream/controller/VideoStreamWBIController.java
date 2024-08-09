@@ -26,4 +26,10 @@ public class VideoStreamWBIController {
         videoStreamWBIService.downloadBangumi(url, l, r);
         return ResultUtils.success();
     }
+
+    @GetMapping("/downloadVideoWBIFromCollection")
+    public Result<?> downloadVideoWBIFromCollection(@RequestParam("avid") String avid, @RequestParam("cid") String cid, @RequestParam("fileName") String fileName){
+        videoStreamWBIService.downloadSingleVideoFromCollection(avid, cid, fileName);
+        return ResultUtils.success();
+    }
 }

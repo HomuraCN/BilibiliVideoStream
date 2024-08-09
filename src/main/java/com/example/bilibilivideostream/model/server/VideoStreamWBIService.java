@@ -109,4 +109,8 @@ public class VideoStreamWBIService {
                     episodesList.get(i).getCid(), "ep" + String.valueOf(i + 1));
         }
     }
+
+    public void downloadSingleVideoFromCollection(String avid, String cid, String fileName){
+        downloadVideoByAidCid(avid, cid, fileName);
+    }
 }
